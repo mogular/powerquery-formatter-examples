@@ -34,7 +34,7 @@ var exampleConfig = {
   lineEnd: "<br/>",
   ws: "&nbsp;",
   lineWidth: 100,
-  numBrackets: "3",
+  numBrackets: 3,
   escapeHtmlText: true,
   alignPairedExpressionsByEqual: false,
   inlineCss: `
