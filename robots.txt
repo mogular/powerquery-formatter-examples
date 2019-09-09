@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://mformatter.com/sitemap.xml
+Host: https://mformatter.com
