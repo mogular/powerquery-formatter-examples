@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 
 function format(code, config) 
 {
-  return fetch("https://m-formatter.azurewebsites.net/api/format", { 
+  return fetch("https://m-formatter.azurewebsites.net/api/format/v1", { 
     method: "post", 
     body: JSON.stringify({
       code,
@@ -94,14 +94,21 @@ background-color: #1e1e1e;
 };
 
 format(exampleCode, exampleConfig).then(res => {
-  if(res.ok)
-  {
-    res.text().then(html => console.log(`Formatted html:\n${html}`));
-  }
-  else
-  {
-    res.json().then(error => {
-      console.log(`Encountered error of kind ${error.kind}\nMessage: ${error.message}\nInnerError: ${error.innerError.message}\nmeta: ${JSON.stringify(error.meta)}`);
-    });
-  }
+  res.json().then(j => {
+    let htmlResult = j.result;
+    let errors = j.errors;
+    
+    if(errors != null && errors.length != 0)
+    {
+      //some errors occurred
+      errors.forEach(error => {
+        console.log(`Encountered error of kind ${error.kind}\nMessage: ${error.message}\nInnerError: ${error.innerError.message}\nmeta: ${JSON.stringify(error.meta)}`);
+      });
+    }
+    if(htmlResult == null)
+    {
+      //htmlResult can be valid even if some errors occurred (fallback mode)
+      console.log(`Formatted html:\n${html}`)
+    }
+  });
 });
