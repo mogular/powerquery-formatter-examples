@@ -46,8 +46,16 @@ color: #c586c0;
 color: #d4d4d4;
 }
 
+.constant.unknown-node {
+  color: red;
+}
+
 .identifier {
 color: #9cdcfe;
+}
+
+.method-call {
+  color:#795E26;
 }
 
 .operator {
