@@ -37,6 +37,7 @@ var exampleConfig = {
   numBrackets: 3,
   escapeHtmlText: true,
   alignPairedExpressionsByEqual: false,
+  includeComments: true,
   inlineCss: `
 .constant.keyword {
 color: #c586c0;
