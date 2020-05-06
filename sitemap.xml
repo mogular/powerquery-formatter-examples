@@ -6,5 +6,6 @@
 <url> <loc>https://mformatter.com/disclaimer</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://mformatter.com/bug</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://mformatter.com/third-party</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://mformatter.com/features</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://mformatter.com/api</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 </urlset>
