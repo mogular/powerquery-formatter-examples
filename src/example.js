@@ -36,7 +36,8 @@ var exampleConfig = {
   lineWidth: 100,
   numBrackets: 3,
   escapeHtmlText: true,
-  alignPairedExpressionsByEqual: false,
+  alignPairedLetExpressionsByEqual: "singleline",
+  alignPairedRecordExpressionsByEqual: "singleline",
   includeComments: true,
   inlineCss: `
 .constant.keyword {
