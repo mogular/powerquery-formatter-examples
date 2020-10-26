@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://powerqueryformatter.com/sitemap.xml
-Host: https://powerqueryformatter.com
+Sitemap: https://www.powerqueryformatter.com/sitemap.xml
+Host: https://www.powerqueryformatter.com
