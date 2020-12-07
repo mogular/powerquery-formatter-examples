@@ -1,13 +1,11 @@
 const fetch = require("node-fetch");
+const { darkThemeCss, lightThemeCss } = require("./inlineCss");
 
-function format(code, config) 
+function callFormatApi(body) 
 {
-  return fetch("https://m-formatter.azurewebsites.net/api/format/v1", { 
+  return fetch("https://m-formatter.azurewebsites.net/api/v2", { 
     method: "post", 
-    body: JSON.stringify({
-      code,
-      config //is optional
-    }),
+    body: JSON.stringify(body),
     headers: {
       "Content-Type": "application/json"
     }
@@ -28,97 +26,137 @@ let
 in 
   GetParameterImpl`;
 
+  
+//1) retrieve formatted HTML.
+
+//Adjust these configuration parameters if you desire
 var exampleConfig = {
-  indentation: "&nbsp;&nbsp;",
-  indentationLength: 2,
-  lineEnd: "<br/>",
-  ws: "&nbsp;",
-  lineWidth: 100,
-  numBrackets: 3,
-  escapeHtmlText: true,
-  alignPairedLetExpressionsByEqual: "singleline",
-  alignPairedRecordExpressionsByEqual: "singleline",
-  includeComments: true,
-  inlineCss: `
-.constant.keyword {
-color: #c586c0;
-}
-
-.constant {
-color: #d4d4d4;
-}
-
-.constant.unknown-node {
-  color: red;
-}
-
-.identifier {
-color: #9cdcfe;
-}
-
-.method-call {
-  color:#795E26;
-}
-
-.operator {
-color: #d4d4d4;
-}
-
-.bracket {
-font-weight: bold;
-}
-
-.bracket-0 {
-color: Gold;
-}
-
-.bracket-1 {
-color: GoldenRod;
-}
-
-.bracket-2 {
-color: DarkGoldenRod;
-}
-
-.type {
-color: #4ec9b0;
-}
-
-.literal.null {
-color: #569cd6;
-}
-
-.literal.string {
-color: #ce9178;
-}
-
-.literal {
-color: #dcdcaa;
-}
-
-body {
-font-family: monospace;
-background-color: #1e1e1e;
-}
-`
+  code: exampleCode,                                    //required
+  resultType: "html",                                   //required
+  // indentationLength: 2,                              //optional, number of whitespaces used to indent
+  // lineEnd: "<br/>",                                  //optional, newline character
+  // ws: "&nbsp;",                                      //optional, whitespace character
+  // lineWidth: 100,                                    //optional, line Width
+  // numBrackets: 3,                                    //optional, number of different bracket classes that you can style (with class bracket-{n})
+  // alignPairedLetExpressionsByEqual: "singleline",    //optional, strategy to align paired expressions under a let expression ("never"|"always"|"singleline")
+  // alignPairedRecordExpressionsByEqual: "singleline", //optional, strategy to align paired expressions under a let expression ("never"|"always"|"singleline")
+  // alignLineCommentsToPosition: null,                 //optional, strategy to align paired expressions under a let expression ("never"|"always"|"singleline")
+  // includeComments: true,                             //optional, strategy to align paired expressions under a let expression ("never"|"always"|"singleline")
+  // inlineCss: lightThemeCss                           //optional. You can see the styles I use for powerqueryformatter.com in ./inlineCss.js
 };
 
-format(exampleCode, exampleConfig).then(res => {
+console.log("retrieving html");
+callFormatApi(exampleConfig).then(res => {
   res.json().then(j => {
-    let htmlResult = j.result;
-    let errors = j.errors;
-    
-    if(errors != null && errors.length != 0)
+    if(j.success == false)
     {
       //some errors occurred
-      errors.forEach(error => {
-        console.log(`Encountered error of kind ${error.kind}\nMessage: ${error.message}\nInnerError: ${error.innerError.message}\nmeta: ${JSON.stringify(error.meta)}`);
+      j.errors.forEach(error => {
+        console.log(`Encountered error of kind ${error.kind}\nMessage: ${error.message}\nInnerError: ${error.innerError != null ? error.innerError.message : ''}\nmeta: ${JSON.stringify(error.meta)}`);
       });
+      return;
     }
-    if(htmlResult == null)
-    {
-      //htmlResult can be valid even if some errors occurred (fallback mode)
-      console.log(`Formatted html:\n${html}`)
-    }
+    let html = j.result;
+    console.log(`HTML successfull`)
   });
 });
+
+//2) retrieve formatted CODEBLOCK.
+
+//Adjust these configuration parameters if you desire
+exampleConfig = {
+  code: exampleCode,                                    //required
+  resultType: "codeblock",                              //required
+  // indentationLength: 2,                              //optional, number of whitespaces used to indent
+  // lineEnd: "<br/>",                                  //optional, newline character
+  // ws: "&nbsp;",                                      //optional, whitespace character
+  // lineWidth: 100,                                    //optional, line Width
+  // numBrackets: 3,                                    //optional, number of different bracket classes that you can style (with class bracket-{n})
+  // alignPairedLetExpressionsByEqual: "singleline",    //optional, strategy to align paired expressions under a let expression ("never"|"always"|"singleline")
+  // alignPairedRecordExpressionsByEqual: "singleline", //optional, strategy to align paired expressions under a let expression ("never"|"always"|"singleline")
+  // alignLineCommentsToPosition: null,                 //optional, strategy to align paired expressions under a let expression ("never"|"always"|"singleline")
+  // includeComments: true,                             //optional, strategy to align paired expressions under a let expression ("never"|"always"|"singleline")
+  // inlineCss: lightThemeCss                           //optional. You can see the styles I use for powerqueryformatter.com in ./inlineCss.js
+};
+console.log("retrieving codeblock");
+callFormatApi(exampleConfig).then(res => {
+  res.json().then(j => {
+    if(j.success == false)
+    {
+      //some errors occurred
+      j.errors.forEach(error => {
+        console.log(`Encountered error of kind ${error.kind}\nMessage: ${error.message}\nInnerError: ${error.innerError != null ? error.innerError.message : ''}\nmeta: ${JSON.stringify(error.meta)}`);
+      });
+      return;
+    }
+    let codeblock = j.result;
+    console.log("CODEBLOCK successful")
+  });
+});
+
+//3 retrieve IFRAME.
+
+//Adjust these configuration parameters if you desire
+exampleConfig = {
+  code: exampleCode,                                    //required
+  resultType: "iframe",                                 //required
+  // indentationLength: 2,                              //optional
+  // lineEnd: "\n",                                     //optional
+  // ws: " ",                                           //optional
+  // lineWidth: 100,                                    //optional
+  // alignPairedLetExpressionsByEqual: "singleline",    //optional
+  // alignPairedRecordExpressionsByEqual: "singleline", //optional
+  // alignLineCommentsToPosition: null,                 //optional
+  // includeComments: true,                             //optional
+};
+
+console.log("retrieving iframe");
+callFormatApi(exampleConfig).then(res => {
+  res.text().then(j => {
+    let iframe = j.result;
+    
+    //IFrame returns content type text/html. To check if errors occurred check the http response status code
+    if(res.status != 200)
+    {
+      console.log("IFRAME: an error occurred");
+      return;
+    }
+    console.log(`IFRAME successfull`)
+  });
+});
+
+
+//4) retrieve formatted TEXT.
+
+//Adjust these configuration parameters if you desire
+exampleConfig = {
+  code: exampleCode,                                    //required
+  resultType: "text",                              //required
+  // indentationKind: "spaces",                         //optional, ("spaces"|"tabs")
+  // indentationLength: 2,                              //optional, irrelevant if indentationKind is "spaces"
+  // lineEnd: "\n",                                     //optional
+  // ws: " ",                                           //optional
+  // lineWidth: 100,                                    //optional
+  // numBrackets: 3,                                    //optional, number of different bracket classes that you can style (with class bracket-{n})
+  // alignPairedLetExpressionsByEqual: "singleline",    //optional
+  // alignPairedRecordExpressionsByEqual: "singleline", //optional
+  // alignLineCommentsToPosition: null,                 //optional
+  // includeComments: true,                             //optional
+};
+
+console.log("retrieving text");
+callFormatApi(exampleConfig).then(res => {
+  res.json().then(j => {
+    if(j.success == false)
+    {
+      //some errors occurred
+      j.errors.forEach(error => {
+        console.log(`Encountered error of kind ${error.kind}\nMessage: ${error.message}\nInnerError: ${error.innerError != null ? error.innerError.message : ''}\nmeta: ${JSON.stringify(error.meta)}`);
+      });
+      return;
+    }
+    let txt = j.result;
+    console.log("TEXT successfull")
+  });
+});
+

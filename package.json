@@ -1,6 +1,6 @@
 {
   "name": "powerquery-formatter-examples",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "examples for the powerquery formatter api",
   "main": "index.js",
   "scripts": {
