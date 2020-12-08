@@ -89,7 +89,10 @@ callFormatApi(exampleConfig).then(res => {
       });
       return;
     }
+    
+    //note that the codeblock structure around the formatted html is NOT styled. You cann apply styles yourself by using the classes of the emmitted HTML. The styles we use for the IFrame codeblock can be seen in ./codeblock.sass or ./codeblock.css.
     let codeblock = j.result;
+    
     console.log("CODEBLOCK successful")
   });
 });
