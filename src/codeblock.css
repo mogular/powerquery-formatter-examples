@@ -1,3 +1,4 @@
+/* Basic css */
 .m-codeblock-container .m-codeblock {
   font-family: monospace;
   display: flex;
@@ -16,6 +17,7 @@
 }
 .m-codeblock-container .m-codeblock .m-content {
   position: relative;
+  flex-grow: 1;
 }
 .m-codeblock-container .m-codeblock .m-content .m-code {
   padding-left: 5px;
@@ -33,12 +35,34 @@
   width: 100%;
   color: rgba(0, 0, 0, 0);
 }
-.m-codeblock-container .m-backlink {
-  float: right;
-  font-family: unset;
+.m-codeblock-container .m-codeblock-footer {
+  display: flex;
+  justify-content: flex-end;
   margin-top: 3px;
 }
+.m-codeblock-container .m-codeblock-footer .m-backlink {
+  font-family: unset;
+}
+.m-codeblock-container .m-codeblock-footer .m-backlink svg {
+  height: 1.5em;
+}
+.m-codeblock-container .m-codeblock-footer .m-copy-btn {
+  font-size: 0.8em;
+  border: none;
+  background-color: #217345;
+  margin-right: 10px;
+  color: white;
+  height: 1.5em;
+}
+.m-codeblock-container .m-codeblock-footer .m-copy-btn svg {
+  padding-top: 2px;
+}
+.m-codeblock-container .m-codeblock-footer .m-copy-btn:hover {
+  background-color: #164b2d;
+}
 
+
+/* Light theme */
 .m-codeblock .m-line-number:nth-child(even) {
   color: #317cc5;
   background: #c8e1fa;
@@ -102,6 +126,7 @@
   color: #dcdcaa;
 }
 
+/* Dark theme */
 .m-codeblock .m-line-number:nth-child(even) {
   color: #317cc5;
   background: #c8e1fa;

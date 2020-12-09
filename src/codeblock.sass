@@ -15,6 +15,7 @@
           background: #dfefff
     .m-content
       position: relative
+      flex-grow: 1
       .m-code
         padding-left: 5px
         padding-right: 5px
@@ -28,10 +29,25 @@
         .m-code-bg-line
           width: 100%
           color: rgba(0,0,0,0)
-  .m-backlink
-    float: right
-    font-family: unset
+  .m-codeblock-footer
+    display: flex
+    justify-content: flex-end
     margin-top: 3px
+    .m-backlink
+      font-family: unset
+      svg
+        height: 1.5em
+    .m-copy-btn
+      font-size: .8em
+      border: none
+      background-color: rgb(33, 115, 69)
+      margin-right: 10px
+      color: white
+      height: 1.5em
+      svg
+        padding-top: 2px
+      &:hover
+        background-color: darken( rgb(33, 115, 69), 10)
     
 //Light Theme
 .m-codeblock
