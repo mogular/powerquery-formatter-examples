@@ -1,0 +1,42 @@
+{
+  "icons": [
+    {
+      "src": "icon_512x512.d5e1c1c32e60617f0cb4c6db868072ae.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_384x384.eded4115b2ca8ecd8c49f4ed653f0fa6.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_256x256.d197ded9f36ee2b6e237be8957b300f9.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_192x192.4a0083cff92a91e63abc4541ba4625bb.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_128x128.c519fe601c00a0b9a1aa53ffb7fde38a.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_96x96.545b9932cde9271f89ff1d194f3184b1.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    }
+  ],
+  "name": "Power Query Formatter and Snippets",
+  "short_name": "Power Query Formatter",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": ".",
+  "description": "A web app where you can browser Power Query Code-Snippets and Format Power Query Code",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff"
+}
